@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // Register
 router.post('/register', async (req, res) => {
   const newUser = new User({
     username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 8),
+    password: req.body.password,
   });
   try {
     const savedUser = await newUser.save();
@@ -22,13 +21,13 @@ router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({
       username: req.body.username,
+      password: req.body.password,
     });
     if (!user) {
       return res.status(401).json('no user was found');
     }
-    let hashedPassword = bcrypt.compareSync(req.body.password, user.password);
 
-    if (!hashedPassword) {
+    if (!password) {
       res.status(401).json('Password does not match');
     }
     const accessToken = jwt.sign(
