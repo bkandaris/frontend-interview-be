@@ -28,5 +28,3 @@ app.use('/api/user', userRoute);
 app.listen(PORT, () => {
   console.log(`backend running on ${PORT}`);
 });
-
-// random comment
