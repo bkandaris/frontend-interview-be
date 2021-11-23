@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // routes
 const javascriptRoute = require('./routes/JavaScript');
+const userRoute = require('./routes/user');
 
 const cors = require('cors');
 app.use(cors());
@@ -21,6 +22,7 @@ mongoose
 
 //   Routes
 app.use('/api/javascript', javascriptRoute);
+app.use('/api/user', userRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log('backend running');
